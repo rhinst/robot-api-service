@@ -17,7 +17,7 @@ app: Flask = Flask(__name__)
 
 @app.route("/sonar/distance")
 def get_sonar_distance():
-    pubsub.subscribe("subsystem.sonar")
+    pubsub.subscribe("subsystem.sonar.measurement")
     redis_message = pubsub.get_message(ignore_subscribe_messages=True, timeout=1)
     if redis_message is None:
         return json.dumps({
