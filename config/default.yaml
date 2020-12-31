@@ -1,0 +1,10 @@
+logging:
+  level: "info"
+  filename: ""
+redis:
+  host: "localhost"
+  port: 6379
+server:
+  address: 0.0.0.0
+  port: 80
+  debug: 0

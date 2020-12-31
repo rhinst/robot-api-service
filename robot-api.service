@@ -1,0 +1,10 @@
+[Unit]
+Description=Robot API Service
+
+[Service]
+Type=simple
+WorkingDirectory=/robot/api
+ExecStart=/usr/bin/python -m api
+
+[Install]
+WantedBy=multi-user.target
