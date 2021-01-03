@@ -11,6 +11,10 @@ setup(
   author_email='rob@hinst.net',
   license='MIT',
   packages=['api'],
+  data_files=[
+    ('config', ['config/default.yaml']),
+    ('config/dev', ['config/dev/env.yaml.dist']),
+  ],
   install_requires = [
     'redis==3.5.3',
     'himl==0.7.0',
@@ -19,6 +23,6 @@ setup(
   test_suite='tests',
   tests_require=['pytest==6.2.1'],
   entry_points={
-    'console_scripts': ['api=api']
+    'console_scripts': ['api=api.__main__']
   }
 )
