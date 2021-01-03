@@ -2,7 +2,7 @@ from os import environ
 from typing import Dict
 import json
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 from redis import Redis
 from redis.client import PubSub
 
@@ -12,7 +12,12 @@ environment: str = environ.get("ENVIRONMENT", "dev")
 config: Dict = load_config(environment)
 redis_client: Redis = Redis(host=config["redis"]["host"], port=config["redis"]["port"], db=0)
 pubsub: PubSub = redis_client.pubsub()
-app: Flask = Flask(__name__)
+app: Flask = Flask(__name__, template_folder="templates")
+
+
+@app.route("/", methods=["GET"])
+def index():
+    return render_template("index.html")
 
 
 @app.route("/sonar/distance")
@@ -32,7 +37,7 @@ def get_sonar_distance():
 
 @app.route("/motor/drive", methods=["POST"])
 def motor_drive():
-    body = request.json()
+    body = request.json
     speed = float(body['speed']) if 'speed' in body else 1.0
     direction = body['direction'] if 'direction' in body else 'forward'
     message = {
@@ -40,7 +45,7 @@ def motor_drive():
        "speed": speed,
        "direction": direction
     }
-    redis_client.publish("subsystem.motor.command", message)
+    redis_client.publish("subsystem.motor.command", json.dumps(message))
     return json.dumps({})
 
 
@@ -49,7 +54,7 @@ def motor_stop():
     message = {
         "command": "stop"
     }
-    redis_client.publish("subsystem.motor.command", message)
+    redis_client.publish("subsystem.motor.command", json.dumps(message))
     return json.dumps({})
 
 

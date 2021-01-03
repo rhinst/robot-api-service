@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Robot Controls</title>
+    <script src="{{url_for('static', filename='jquery-3.5.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='api.js')}}"></script>
+</head>
+<body>
+<form onsubmit="return false;">
+    <button role="button" onclick="motor_drive()">Drive</button>
+    <button role="button" onclick="motor_stop();">Stop</button>
+</form>
+</body>
+</html>
