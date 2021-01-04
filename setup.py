@@ -12,6 +12,8 @@ setup(
   license='MIT',
   packages=['api'],
   data_files=[
+    ('api/templates', ['api/templates/index.html']),
+    ('api/static', ['api/static/api.js', 'api/static/jquery-3.5.1.min.js']),
     ('config', ['config/default.yaml']),
     ('config/dev', ['config/dev/env.yaml.dist']),
   ],
