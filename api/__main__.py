@@ -1,6 +1,9 @@
 from os import environ
 from typing import Dict
 import json
+from itertools import cycle
+from time import sleep
+from uuid import uuid1
 
 from flask import Flask, request, render_template
 from redis import Redis
@@ -64,6 +67,27 @@ def speech_say():
     phrase = body['phrase']
     redis_client.publish("subsystem.speech.command", phrase)
     return json.dumps({})
+
+
+@app.route("/listen/phrase", methods=["POST"])
+def listen_phrase():
+    pubsub.subscribe("subsystem.listener.recordings")
+    request_id = str(uuid1())
+    message = {
+        "request_id": request_id,
+        "mode": "phrase"
+    }
+    redis_client.publish("subsystem.listener.command", json.dumps(message))
+    while cycle([True]):
+        redis_message = pubsub.get_message()
+        if redis_message is not None:
+            message = json.loads(redis_message['data'])
+            if message['request_id'] == request_id:
+                return json.dumps({
+                    "wav_file": message['wav_file'],
+                    "transcription": message['transcription']
+                })
+            sleep(0.1)
 
 
 app.run(host=config['server']['address'], port=config['server']['port'], debug=config['server']['debug'])

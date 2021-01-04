@@ -34,3 +34,20 @@ function say(phrase) {
         "dataType": "json"
     })
 }
+
+function listen_phrase() {
+    $.ajax({
+        "url": base_url + "/listen/phrase",
+        "type": "POST",
+        "data": "{}",
+        processData: false,
+        "contentType": "application/json",
+        "dataType": "json",
+        "success": function() {
+
+        }
+    }).done(function(data) {
+        $('#listened_phrase').innerHTML(data)
+    });
+}
+
