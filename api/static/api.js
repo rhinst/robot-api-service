@@ -5,7 +5,7 @@ function motor_drive() {
         "url": base_url + "/motor/drive",
         "type": "POST",
         "data": JSON.stringify({
-            "speed": 0.5,
+            "speed": 1.0,
             "direction": "forward"
         }),
         processData: false,
@@ -19,4 +19,18 @@ function motor_stop() {
         "url": base_url + "/motor/stop",
         "type": "POST"
     });
+}
+
+
+function say(phrase) {
+    $.ajax({
+        "url": base_url + "/speech/say",
+        "type": "POST",
+        "data": JSON.stringify({
+            "phrase": phrase
+        }),
+        processData: false,
+        "contentType": "application/json",
+        "dataType": "json"
+    })
 }

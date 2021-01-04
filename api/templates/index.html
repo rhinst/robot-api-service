@@ -8,8 +8,15 @@
 </head>
 <body>
 <form onsubmit="return false;">
-    <button role="button" onclick="motor_drive()">Drive</button>
-    <button role="button" onclick="motor_stop();">Stop</button>
+    <div>
+        <h2>Motor Controls</h2>
+        <button role="button" onclick="motor_drive()">Drive</button>
+        <button role="button" onclick="motor_stop();">Stop</button>
+    </div>
+    <div>
+        <h2>Speech</h2>
+        Say: <input type="text" name="phrase" id="phrase"> <button role="button" onclick="say($('#phrase').val());">Submit</button>
+    </div>
 </form>
 </body>
 </html>

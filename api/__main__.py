@@ -58,4 +58,12 @@ def motor_stop():
     return json.dumps({})
 
 
+@app.route("/speech/say", methods=["POST"])
+def speech_say():
+    body = request.json
+    phrase = body['phrase']
+    redis_client.publish("subsystem.speech.command", phrase)
+    return json.dumps({})
+
+
 app.run(host=config['server']['address'], port=config['server']['port'], debug=config['server']['debug'])
