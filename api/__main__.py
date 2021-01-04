@@ -71,7 +71,7 @@ def speech_say():
 
 @app.route("/listen/phrase", methods=["POST"])
 def listen_phrase():
-    pubsub.subscribe("subsystem.listener.recordings")
+    pubsub.subscribe("subsystem.listener.recording")
     request_id = str(uuid1())
     message = {
         "request_id": request_id,
@@ -79,7 +79,7 @@ def listen_phrase():
     }
     redis_client.publish("subsystem.listener.command", json.dumps(message))
     while cycle([True]):
-        redis_message = pubsub.get_message()
+        redis_message = pubsub.get_message(ignore_subscribe_messages=True)
         if redis_message is not None:
             message = json.loads(redis_message['data'])
             if message['request_id'] == request_id:

@@ -47,7 +47,7 @@ function listen_phrase() {
 
         }
     }).done(function(data) {
-        $('#listened_phrase').innerHTML(data)
+        $('#listened_phrase').html("Got transcription from audio: '" + data['transcription'] + "'")
     });
 }
 
