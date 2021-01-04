@@ -4,7 +4,7 @@ Description=Robot API Service
 [Service]
 Type=simple
 WorkingDirectory=/robot/api
-ExecStart=/usr/bin/python -m api
+ExecStart=/robot/api/venv/bin/api
 
 [Install]
 WantedBy=multi-user.target
